@@ -29,11 +29,12 @@ Tautan aplikasi: https://safarei-park.adaptable.app/main/
 - Add, commit, dan push ke GitHub
 
 2. Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya yang menjelaskan kaitan antara urls.py, views.py, models.py, dan berkas html.
+![Bagan](Bagan.png)
 
 3. Mengapa menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa virtual environment?
 Kita menggunakan virtual environment untuk memastikan dependencies untuk setiap proyek terisolasi karena proyek-proyek berbeda dapat menggunakan dependecies yang berbeda sehingga kita harus mencegah dependencies tersebut bertabrakan. Kita dapat membuat aplikasi web berbasis Django tanpa virtual environment, tetapi tidak dianjurkan untuk alasan tersebut.
 
 4. Apa MVC, MVT, MVVM?
-- MVC (Model-View-Controller): Model menyimpan data yang diperlukan sebuah aplikasi, View menyimpan komponen yang akan ditampilkan pada layar (UI), dan Controller menyambungkan Model dan View.
-- MVT (Model-View-Template): Model menyimpan data, View dapat mengambil data dalam model dan merender suatu template dengan data tersebut, Template menyimpan komponen yang akan ditampilkan (UI).
-- MVVM (Model-View-ViewModel): Model menyimpan data, View menyimpan komponen yang ditampilkan (UI), ViewModel menyambungkan View dan Model.
+- MVC (Model-View-Controller): Model menyimpan data yang diperlukan sebuah aplikasi, View menyimpan komponen yang akan ditampilkan pada layar (UI), dan Controller menerima dan memproses input dari user lalu membuat perubahan pada Model dan View berdasarkan input tersebut. MVC digunakan dalam berbagai framework.
+- MVT (Model-View-Template): Model menyimpan data, View dapat mengambil data dalam model dan merender suatu template dengan data tersebut, Template menyimpan komponen yang akan ditampilkan (UI). MVT adalah pattern yang spesifik untuk Django. Template dalam MVT berperan seperti VIew dalam MVC dan MVVM.
+- MVVM (Model-View-ViewModel): Model menyimpan data, View menyimpan komponen yang ditampilkan (UI), ViewModel menyambungkan View dan Model. Perubahan pada ViewModel akan automatis berubah di View (dan sebaliknya) dengan data binding. MVVM digunakan dalam berbagai framework.
