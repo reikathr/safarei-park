@@ -44,7 +44,8 @@ Kita menggunakan virtual environment untuk memastikan dependencies untuk setiap 
 
 ### Pertanyaan Tugas 3
 1. Apa perbedaan antara form `POST` dan form `GET` dalam Django? <br>
-`POST` dan `GET` adalah dua method HTTP yang paling sering ditemukan. Beberapa perbedaan antara `POST` dan `GET` adalah sebagai berikut (dari [W3Schools](https://www.w3schools.com/tags/ref_httpmethods.asp)):
+`POST` dan `GET` adalah dua method HTTP yang paling sering ditemukan. Beberapa perbedaan antara `POST` dan `GET` adalah sebagai berikut (dari [W3Schools](https://www.w3schools.com/tags/ref_httpmethods.asp)): <br>
+
 | POST | GET |
 |---|---|
 |Tidak bisa di-*cache*|Bisa di-*cache*|
@@ -57,7 +58,8 @@ Kita menggunakan virtual environment untuk memastikan dependencies untuk setiap 
 |Lebih aman karena data tidak tersimpan di riwayat browser|Kurang aman karena data tersimpan di riwayat *browser* dan data yang terkirim adalah bagian dari URL|
 
 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
-XML dan JSON berfungsi untuk menyimpan dan berinteraksi dengan data, sementara HTML berfungsi untuk menjelaskan bagaimana data tersebut akan ditampilkan. Beberapa perbedaan utama antara XML dan JSON adalah sebagai berikut:
+XML dan JSON berfungsi untuk menyimpan dan berinteraksi dengan data, sementara HTML berfungsi untuk menjelaskan bagaimana data tersebut akan ditampilkan. Beberapa perbedaan utama antara XML dan JSON adalah sebagai berikut: <br>
+
 | XML | JSON |
 |---|---|
 |Menggunakan end tag|Tidak menggunakan end tag|
