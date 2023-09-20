@@ -119,7 +119,106 @@ JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena ke
 
     return render(request, "main.html", context)
     ```
-+
++ Membuat berkas create_animal.html di main > templates dengan isi sebagai berikut:
+``` html
+    {% extends 'base.html' %} 
+
+    {% block content %}
+    <h1>Add New Animal</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Add Animal"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    {% endblock %}
+```
++ Menambahkan kode berikut ke main.html
+```html
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Family</th>
+            <th>Class</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+
+        {% for animal in animals %}
+            <tr>
+                <td>{{animal.name}}</td>
+                <td>{{animal.amount}}</td>
+                <td>{{animal.family}}</td>
+                <td>{{animal.animal_class}}</td>
+                <td>{{animal.description}}</td>
+                <td>{{product.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_animal' %}">
+        <button>
+            Add New Animal
+        </button>
+    </a>
+
+{% endblock content %}
+```
++ Mengimport create_animal ke urls.py
++ Menambah path berikut ke urlpatterns di main > urls.py
+```python
+    path('create-animal', create_animal, name='create_animal')
+```
++ Melakukan migration karena telah melakukan perubahan pada model dengan menjalankan `python manage.py makemigrations` lalu `python manage.py migrate`
++ Menjalankan proyek dengan menjalankan `python manage.py runserver`, membuka https://localhost:8000, dan menambahkan data di forms
++ Menambahkan import di main > views.py
+```python
+    from django.http import HttpResponse
+    from django.core import serializers
+```
++ Menambahkan beberapa fungsi ke views.py untuk melihat objek yang telah ditambahkan di XML, JSON, XML by ID, dan JSON by ID
+```python
+    ...
+    def show_xml(request):
+        data = Animal.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_json(request):
+        data = Animal.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+    def show_xml_by_id(request, id):
+        data = Animal.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_json_by_id(request, id):
+        data = Animal.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
++ Menambahkan beberapa import di main > urls.py
+```python
+    from main.views import show_main, create_animal, show_xml, show_json, show_xml_by_id, show_json_by_id 
+```
++ Menambahkan beberapa path ke urlpatterns di urls.py
+```python
+    ...
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id')
+```
++ Routing untuk semua fungsi di main > views.py selesai
 
 # Mengakses create_animal, show_xml, show_json, show_xml_by_id, show_json_by_id dengan Postman.
 + /create-animal <br>
