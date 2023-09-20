@@ -8,12 +8,14 @@ from django.core import serializers
 def show_main(request):
     animals = Animal.objects.all()
     animal_sum = 0
+    species_sum = animals.count
     for animal in animals:
         animal_sum += animal.amount
 
     context = {
-        'name': 'Athira Reika', # Nama kamu
-        'class': 'PBP F', # Kelas PBP kamu
+        'name': 'Athira Reika',
+        'class': 'PBP F',
+        'species_sum': species_sum,
         'animal_sum': animal_sum,
         'animals': animals
     }

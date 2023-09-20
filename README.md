@@ -42,6 +42,8 @@ Kita menggunakan virtual environment untuk memastikan dependencies untuk setiap 
 + MVT (Model-View-Template): Model menyimpan data, View dapat mengambil data dalam model dan merender suatu template dengan data tersebut, Template menyimpan komponen yang akan ditampilkan (UI). MVT adalah pattern yang spesifik untuk Django. Template dalam MVT berperan seperti VIew dalam MVC dan MVVM.
 + MVVM (Model-View-ViewModel): Model menyimpan data, View menyimpan komponen yang ditampilkan (UI), ViewModel menyambungkan View dan Model. Perubahan pada ViewModel akan automatis berubah di View (dan sebaliknya) dengan data binding. MVVM digunakan dalam berbagai framework.
 
+<hr>
+
 ### Pertanyaan Tugas 3
 1. Apa perbedaan antara form `POST` dan form `GET` dalam Django? <br>
 `POST` dan `GET` adalah dua method HTTP yang paling sering ditemukan. Beberapa perbedaan antara `POST` dan `GET` adalah sebagai berikut (dari [W3Schools](https://www.w3schools.com/tags/ref_httpmethods.asp)): <br>
@@ -160,7 +162,7 @@ JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena ke
                 <td>{{animal.family}}</td>
                 <td>{{animal.animal_class}}</td>
                 <td>{{animal.description}}</td>
-                <td>{{product.date_added}}</td>
+                <td>{{animal.date_added}}</td>
             </tr>
         {% endfor %}
     </table>
@@ -220,7 +222,7 @@ JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena ke
 ```
 + Routing untuk semua fungsi di main > views.py selesai
 
-# Mengakses create_animal, show_xml, show_json, show_xml_by_id, show_json_by_id dengan Postman.
+### Mengakses create_animal, show_xml, show_json, show_xml_by_id, show_json_by_id dengan Postman.
 + /create-animal <br>
 ![/create-animal](create-animal.png)
 + /xml <br>
