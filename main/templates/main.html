@@ -1,15 +1,43 @@
-<h1>Safarei Park</h1>
-<h5>Name: </h5>
-<p>Athira Reika</p>
-<h5>Class: </h5>
-<p>PBP F</p>
-<p>It's Safarei because it's a play on words with the word safari and my nickname!</p>
+{% extends 'base.html' %}
 
-<h6>Name: </h6>
-<p>{{ name }}</p>
-<h6>Amount: </h6>
-<p>{{ amount }}</p>
-<h6>Description:</h6>
-<p>{{ description }}</p>
-<h6>Category:</h6>
-<p>{{ category }}</p>
+{% block content %}
+    <h1>Shopping List Page</h1>
+
+        <h5>Name:</h5>
+        <p>{{name}}</p>
+
+        <h5>Class:</h5>
+        <p>{{class}}</p>
+        <p>It's Safarei because it's a play on words with the word safari and my nickname!</p>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Family</th>
+            <th>Class</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+
+        {% for animal in animals %}
+            <tr>
+                <td>{{animal.name}}</td>
+                <td>{{animal.amount}}</td>
+                <td>{{animal.family}}</td>
+                <td>{{animal.animal_class}}</td>
+                <td>{{animal.description}}</td>
+                <td>{{animal.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_animal' %}">
+        <button>
+            Add New Animal
+        </button>
+    </a>
+
+{% endblock content %}
