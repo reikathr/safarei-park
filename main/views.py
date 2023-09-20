@@ -7,10 +7,14 @@ from django.core import serializers
 
 def show_main(request):
     animals = Animal.objects.all()
+    animal_sum = 0
+    for animal in animals:
+        animal_sum += animal.amount
 
     context = {
         'name': 'Athira Reika', # Nama kamu
         'class': 'PBP F', # Kelas PBP kamu
+        'animal_sum': animal_sum,
         'animals': animals
     }
 
