@@ -1,5 +1,5 @@
 import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from main.forms import AnimalForm
 from main.models import Animal
@@ -89,3 +89,12 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def handle_sub_button(request, item_id):
+    animal = get_object_or_404(Animal, pk=item_id)
+
+    if animal.amount > 0:
+        animal.amount -= 1
+        animal.save()
+
+    return HttpResponseRedirect(reverse('main:show_main'))

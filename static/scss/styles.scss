@@ -7,6 +7,11 @@ $color-five: #F6F1E5;
 @import url('https://fonts.googleapis.com/css2?family=Pangolin');
 @import url('https://fonts.googleapis.com/css2?family=Inter');
 
+@mixin pink-pangolin {
+    font-family: 'Pangolin', cursive;
+    color: $color-three;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,15 +21,80 @@ $color-five: #F6F1E5;
 body {
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
-    font-size: 15;
+    font-size: 12;
     color: $color-two;
     background-color: $color-five;
 }
 
+.container {
+    padding-top: 20px;
+}
+
 .h5 {
-    font-size: 40px;
+    font-size: 30px;
     font-family: 'Pangolin', cursive;
     color: $color-two;
+}
+
+.totals {
+    font-size: 25px;
+    font-family: 'Pangolin', cursive;
+    color: $color-two;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    height: 360px;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25);
+    overflow:hidden;
+}
+
+.card-img-top {
+    height: 166.667px;
+    object-fit: cover;
+}
+
+.card-species {
+    @include pink-pangolin();
+    font-size: 18px;
+}
+
+.card-details {
+    @include pink-pangolin();
+    font-size: 15px;
+}
+
+.card-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: $color-two;
+}
+
+.card-footer {
+    width: 250px;
+    position: absolute;
+    bottom: 0;
+    background-color: $color-one;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 12px;
+    padding-bottom: 0px;
+    .container-fluid {
+        margin-bottom: 2px;
+    }
+    .col {
+        padding: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .amount-display {
+            display: flex;
+            align-items: baseline;
+        }
+    }
 }
 
 .navbar {

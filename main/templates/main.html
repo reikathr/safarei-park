@@ -1,30 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container">
         <h5 class="h5">Welcome back to Safarei, <span style="color:#FF5FAC;">{{name}}</span> from class <span style="color:#FF5FAC;">{{class}}</span>!</h5>
 
-        <p>You have {{animal_sum}} animals from {{species_sum}} different species in the Safarei Park!</p>
+        <h4 class="totals">You have seen <span style="color:#FF5FAC;">{{animal_sum}}</span> animals from <span style="color:#FF5FAC;">{{species_sum}}</span> species!</h4>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Family</th>
-            <th>Class</th>
-            <th>Description</th>
-        </tr>
-
-        {% for animal in animals %}
-            <tr>
-                <td>{{animal.name}}</td>
-                <td>{{animal.amount}}</td>
-                <td>{{animal.family}}</td>
-                <td>{{animal.animal_class}}</td>
-                <td>{{animal.description}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
+        <div class="container mt-5">
+            <div class="row">
+                {% for animal in animals %}
+                <div class="col-md-3">
+                    <div class="card mb-5 h-100">
+                        <img src="{{animal.animal_image.url}}" class="card-img-top" alt="image for {{animal.name}}">
+                        <div class="card-body">
+                            <h4 class="card-species">{{animal.name}}</h5>
+                            <h3 class="card-details">Family: {{animal.family}}, Class: {{animal.animal_class}}.</h3>
+                            <p class="card-description">{{animal.description}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="container-fluid">
+                                <div class="row">
+                                <div class="col">
+                                    <!-- Left content -->
+                                    <form action="{% url 'main:handle_sub_button' animal.id %}" method="post">
+                                        {% csrf_token %}
+                                        <a href="#" class = "btn">-</a>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <!-- Centered content -->
+                                    <p class ="amount-display">{{animal.amount}}</p>
+                                </div>
+                                <div class="col">
+                                    <!-- Right content -->
+                                    <a href="#" class = "btn">+</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     <br />
 
     <a href="{% url 'main:create_animal' %}">
@@ -42,5 +60,6 @@
             Logout
         </button>
     </a>
+    </div>
 
 {% endblock %}

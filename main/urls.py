@@ -1,6 +1,6 @@
 from django.urls import path
 from main.views import show_main, create_animal, show_xml, show_json
-from main.views import show_xml_by_id, show_json_by_id, register, login_user, logout_user
+from main.views import show_xml_by_id, show_json_by_id, register, login_user, logout_user, handle_sub_button
 
 app_name = 'main'
 
@@ -14,5 +14,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
-
+    path('sub-item/<int:item_id>/', handle_sub_button, name='handle_sub_button'),
 ]
