@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+        <h5 class="h5">Welcome back to Safarei, <span style="color:#FF5FAC;">{{name}}</span> from class <span style="color:#FF5FAC;">{{class}}</span>!</h5>
 
-        <h5>Name:</h5>
-        <p>{{name}}</p>
-
-        <h5>Class:</h5>
-        <p>{{class}}</p>
         <p>You have {{animal_sum}} animals from {{species_sum}} different species in the Safarei Park!</p>
 
     <table>
@@ -16,7 +12,6 @@
             <th>Family</th>
             <th>Class</th>
             <th>Description</th>
-            <th>Date Added</th>
         </tr>
 
         {% for animal in animals %}
@@ -26,7 +21,6 @@
                 <td>{{animal.family}}</td>
                 <td>{{animal.animal_class}}</td>
                 <td>{{animal.description}}</td>
-                <td>{{animal.date_added}}</td>
             </tr>
         {% endfor %}
     </table>
@@ -36,6 +30,16 @@
     <a href="{% url 'main:create_animal' %}">
         <button>
             Add New Animal
+        </button>
+    </a>
+
+    
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+    
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
         </button>
     </a>
 

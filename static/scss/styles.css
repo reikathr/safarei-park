@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pangolin");
+@import url("https://fonts.googleapis.com/css2?family=Inter");
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +7,15 @@
 
 body {
   min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  font-size: 15;
+  color: #59AA4C;
   background-color: #F6F1E5; }
+
+.h5 {
+  font-size: 40px;
+  font-family: 'Pangolin', cursive;
+  color: #59AA4C; }
 
 .navbar {
   background-color: #FDC3CA;
@@ -18,15 +27,29 @@ body {
   text-align: center;
   padding: 10px 16px;
   text-decoration: none;
-  font-size: 20;
-  font-family: 'Pangolin', cursive;
   margin-left: 5;
-  margin-right: 5; }
+  margin-right: 5;
+  font-size: 20px;
+  font-family: 'Pangolin', cursive; }
 
 .navbar-left {
   float: left; }
 
 .navbar-right {
   float: right; }
+
+.spacer {
+  height: 100px; }
+
+.footer {
+  background-color: #FDC3CA;
+  color: #59AA4C;
+  font-size: 18px;
+  font-family: 'Pangolin', cursive;
+  padding: 15px 2px 1px 2px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  bottom: 0; }
 
 /*# sourceMappingURL=styles.css.map */

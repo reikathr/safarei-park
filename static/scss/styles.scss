@@ -4,7 +4,8 @@ $color-three: #FF5FAC;
 $color-four:#AFEA8B;
 $color-five: #F6F1E5;
 
-@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin');
+@import url('https://fonts.googleapis.com/css2?family=Inter');
 
 * {
     margin: 0;
@@ -14,7 +15,16 @@ $color-five: #F6F1E5;
 
 body {
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    font-size: 15;
+    color: $color-two;
     background-color: $color-five;
+}
+
+.h5 {
+    font-size: 40px;
+    font-family: 'Pangolin', cursive;
+    color: $color-two;
 }
 
 .navbar {
@@ -28,10 +38,10 @@ body {
     text-align: center;
     padding: 10px 16px;
     text-decoration: none;
-    font-size: 20;
-    font-family: 'Pangolin', cursive;
     margin-left: 5;
     margin-right: 5;
+    font-size: 20px;
+    font-family: 'Pangolin', cursive;
 }
 
 .navbar-left {
@@ -40,4 +50,20 @@ body {
 
 .navbar-right {
     float: right;
+}
+
+.spacer {
+    height: 100px;
+}
+
+.footer {
+    background-color: $color-one;
+    color: $color-two;
+    font-size: 18px;
+    font-family: 'Pangolin', cursive;
+    padding: 15px 2px 1px 2px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
 }
