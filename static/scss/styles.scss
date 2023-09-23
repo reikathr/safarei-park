@@ -1,0 +1,43 @@
+$color-one: #FDC3CA;
+$color-two: #59AA4C;
+$color-three: #FF5FAC;
+$color-four:#AFEA8B;
+$color-five: #F6F1E5;
+
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: $color-five;
+}
+
+.navbar {
+    background-color: $color-one;
+    overflow: hidden;
+}
+
+.navbar a {
+    display: block;
+    color: $color-two;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 20;
+    font-family: 'Pangolin', cursive;
+    margin-left: 5;
+    margin-right: 5;
+}
+
+.navbar-left {
+    float: left;
+}
+
+.navbar-right {
+    float: right;
+}

@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  background-color: #F6F1E5; }
+
+.navbar {
+  background-color: #FDC3CA;
+  overflow: hidden; }
+
+.navbar a {
+  display: block;
+  color: #59AA4C;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 20;
+  font-family: 'Pangolin', cursive;
+  margin-left: 5;
+  margin-right: 5; }
+
+.navbar-left {
+  float: left; }
+
+.navbar-right {
+  float: right; }
+
+/*# sourceMappingURL=styles.css.map */

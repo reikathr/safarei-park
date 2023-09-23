@@ -6,3 +6,4 @@ class Animal(models.Model):
     family = models.CharField(max_length=255)
     animal_class = models.CharField(max_length=255, default='Mammalia')
     description = models.TextField()
+    animal_image = models.ImageField(upload_to='images/',default='media/default.png')
