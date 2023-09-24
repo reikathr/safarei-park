@@ -6,7 +6,7 @@
 
         <h4 class="totals">You have seen <span style="color:#FF5FAC;">{{animal_sum}}</span> animals from <span style="color:#FF5FAC;">{{species_sum}}</span> species!</h4>
 
-        <div class="container mt-5">
+        <div class="container mt-3">
             <div class="row">
                 {% for animal in animals %}
                 <div class="col-md-3">
@@ -22,9 +22,11 @@
                                 <div class="row">
                                 <div class="col">
                                     <!-- Left content -->
-                                    <form action="{% url 'main:handle_sub_button' animal.id %}" method="post">
+                                    <form method="post" action="{% url 'main:update_amount' %}">
                                         {% csrf_token %}
-                                        <a href="#" class = "btn">-</a>
+                                        <input type="hidden" name="action" value="decrement">
+                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <button type="submit" class="btn">-</button>
                                     </form>
                                 </div>
                                 <div class="col">
@@ -33,7 +35,13 @@
                                 </div>
                                 <div class="col">
                                     <!-- Right content -->
-                                    <a href="#" class = "btn">+</a>
+                                    <form method="post" action="{% url 'main:update_amount' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="increment">
+                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <button type="submit" class="btn">+</button>
+                                    </form>
+                                    
                                 </div>
                                 </div>
                             </div>

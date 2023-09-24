@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
-from main.forms import AnimalForm
+from main.forms import AnimalForm, AnimalAmountForm
 from main.models import Animal
 from django.urls import reverse
 from django.core import serializers
@@ -24,7 +24,7 @@ def show_main(request):
         'species_sum': species_sum,
         'animal_sum': animal_sum,
         'animals': animals,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': request.COOKIES['last_login']
     }
 
     return render(request, "main.html", context)
@@ -90,11 +90,19 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-def handle_sub_button(request, item_id):
-    animal = get_object_or_404(Animal, pk=item_id)
+def update_animal_amount(request):
+    if request.method == 'POST':
+        form = AnimalAmountForm(request.POST)
+        if form.is_valid():
+            action = form.cleaned_data['action']
+            animal_id = form.cleaned_data['animal_id']
+            animal = Animal.objects.get(id=animal_id)
 
-    if animal.amount > 0:
-        animal.amount -= 1
-        animal.save()
+            if action == 'increment':
+                animal.amount += 1
+            elif action == 'decrement' and animal.amount > 0:
+                animal.amount -= 1
 
-    return HttpResponseRedirect(reverse('main:show_main'))
+            animal.save()
+
+    return redirect('main:show_main')

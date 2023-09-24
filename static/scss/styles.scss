@@ -27,7 +27,12 @@ body {
 }
 
 .container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
     padding-top: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 .h5 {
