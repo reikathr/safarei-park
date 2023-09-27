@@ -9,6 +9,7 @@
         <div class="container mt-3">
             <div class="row">
                 {% for animal in animals %}
+                {% if animal.amount != 0 %}
                 <div class="col-md-3">
                     <div class="card mb-5 h-100">
                         <img src="{{animal.animal_image.url}}" class="card-img-top" alt="image for {{animal.name}}">
@@ -22,6 +23,12 @@
                                 <div class="row">
                                 <div class="col">
                                     <!-- Left content -->
+                                    <form method="post" action="{% url 'main:update_amount' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <button type="submit" class="btn">X</button>
+                                    </form>
                                     <form method="post" action="{% url 'main:update_amount' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="decrement">
@@ -41,33 +48,31 @@
                                         <input type="hidden" name="animal_id" value="{{ animal.id }}">
                                         <button type="submit" class="btn">+</button>
                                     </form>
-                                    
                                 </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
     <br />
 
-    <a href="{% url 'main:create_animal' %}">
+    <!-- <a href="{% url 'main:create_animal' %}">
         <button>
             Add New Animal
         </button>
     </a>
 
     
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
-
-    
     <a href="{% url 'main:logout' %}">
         <button>
             Logout
         </button>
-    </a>
+    </a> -->
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
     </div>
 
 {% endblock %}

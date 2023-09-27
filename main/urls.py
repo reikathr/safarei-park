@@ -1,6 +1,7 @@
 from django.urls import path
 from main.views import show_main, create_animal, show_xml, show_json
-from main.views import show_xml_by_id, show_json_by_id, register, login_user, logout_user, update_animal_amount
+from main.views import show_xml_by_id, show_json_by_id
+from main.views import register, login_user, logout_user, update_animal_amount
 
 app_name = 'main'
 

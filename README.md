@@ -233,3 +233,178 @@ JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena ke
 ![/xml/1](xmlbyid.png)
 + /json/1 <br>
 ![/json/1](jsonbyid.png)
+---
+### Pertanyaan Tugas 4
+1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+Dalam Django, UserCreationForm adalah subclass dari ModelForm yang dapat digunakan untuk membuat User dengan model default User dari Django.
+
+|Kelebihan|Kekurangan|
+|---|---|
+|Mudah, tidak perlu menulis banyak kode sendiri|Model terbatas pada model User bawaan dari Django|
+|Ada fungsi validasi bawaan dari Django|Terbatas pada *field* bawaan dari Django|
+|Terintegrasi dengan sistem autentikasi Python|Tidak ada komponen UI bawaan, jadi tetap perlu membuat UI sendiri|
+|Memiliki perlindungan bawaan terhadap CSRF (Cross-Site Request Forgery)|Fitur-fitur UserCreationForm tidak selalu diperlukan, sehingga dapat menambah *overhead* tanpa memberi fungsi ke aplikasi|
+2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+Autentikasi adalah proses melakukan verifikasi terhadap identitas suatu user. Dengan autentikasi, Django memastikan bahwa seseorang yang login sebagai user A memang benar user A. Autentikasi penting untuk memastikan user selain user A tidak bisa mengakses data-data user A yang dilindungi.
+Otorisasi adalah proses menentukan apa saja yang boleh dilakukan oleh seorang user. Dengan ototrisasi, Django mengendalikan tindakan apa saja yang bisa dilakukan oleh user dalam suatu aplikasi setelah mereka sudah diautentikasi. Otorisasi memastikan bahwa seorang user hanya dapat melakukan hal yang sesuai dengan *permission* dan *privilege* user tersebut. Contohnya, mungkin seorang admin dapat menghapus data orang lain di suatu aplikasi, tetapi user lain tidak boleh melakukan itu dan tidak akan bisa karena adanya otorisasi.
+3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+Cookies adalah data yang dikirim oleh suatu web server ke web browser milik seorang user ketika mereka sedang browsing di website. Cookies akan disimpan di perangkat user dan akan dikirim kembali ke server dengan request. Ketika seorang user berinteraksi dengan situs Django, Django membuat sesi dan sessiod ID untuk user tersebut. Session data disimpan di server dan menyimpan informasi yang diperlukan oleh sesi user tersebut seperti status autentikasi, data user, dan session data lain. Lalu, session cookie yang mengandung session ID dikirim ke browser seorang user sebagai bagian dari HTTP response dan sisimpan di perangkat user. Setiap kali user melakukan request, cookie ini dikirim kembali ke server. Lalu, middleware Django akan menggunakan session ID yang disimpan di cookie untuk mengambil data user dari suatu database. Session data dapat diubah ketika user berinteraksi dengan aplikasi. Ketika user log out atau sessionnya sudah habis, session data (dan biasanya session cookie) akan dihilangkan.
+4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+Tidak. Dengan cookies yang menyimpan session ID, seorang attacker dapat mengambil alih session seorang user. Cross-Site Scripting dapat mengakses dan memanipulasi cookies sehingga attacker dapat mencuri data sensitif dan melakukan tindakan atas nama user/ Cross-Site Request Forgery juga dapat melakukan tindakan atas nama user tanpa user itu mengetahuinya. Ada juga cookies yang bisa melakukan tracking terhadap user tanpa sepengetahuan mereka.
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Menjalankan venv
+- Mengimport kode berikut ke views.py
+```python
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+```
+- Menambahkan fungsi berikut ke main > views.py
+```python
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+- Menambahkan kode berikut di views.py untuk memastikan main hanya bisa dilihat oleh user yang sudah diautentikasi
+```python
+...
+@login_required(login_url='/login')
+def show_main(request):
+...
+```
+- Menambahkan kode ini ke context dalam show_main
+```python
+...
+'last_login': request.COOKIES['last_login'],
+...
+```
+- Menambahkan kode berikut ke main.html untuk menampilkan last login
+```HTML
+...
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+...
+```
+- Membuat berkas baru di main > templates bernama register.html dan login.html yang akan berisi HTML untuk interface halaman register dan login
+- Membuat navbar di base.html yang menampilkan tombol logout
+```HTML
+    <div class="navbar-right">
+        <a href="{% url 'main:create_animal' %}">Add Animal</a> 
+        <div class="dropdown">
+            <button class="dropbtn">Welcome, {{user.username}}</button>
+            <div class="dropdown-content">
+                <a href="{% url 'main:logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+```
+- Mengimport fungsi yang baru dibuat ke main > urls.py
+```python
+from main.views import register, login_user, logout_user
+```
+- Menambahkan path url ke urlpatterns
+```python
+...
+    path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
+...
+```
+- Menambahkan kode ini ke main > models.py
+```python
+...
+from django.contrib.auth.models import User
+...
+```
+- Menambahkan potongan kode berikut ke model Animal
+```python
+class Animal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+```
+- Mengubah fungsi create_animal di main > views.py
+```python
+def create_animal(request):
+    form = AnimalForm(request.POST or None, request.FILES or None)
+
+    if form.is_valid() and request.method == "POST":
+        animal = form.save(commit=False)
+        animal.user = request.user
+        animal.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    context['user_authenticated']: user_authenticated
+    return render(request, "create_animal.html", context)
+```
+- Mengubah fungsi show_main
+```python
+@login_required(login_url='/login')
+def show_main(request):
+    animals = Animal.objects.filter(user=request.user)
+    animal_sum = 0
+    species_sum = animals.count
+    for animal in animals:
+        animal_sum += animal.amount
+    user_authenticated = request.user.is_authenticated
+
+    context = {
+        'name': request.user.username,
+        'class': 'PBP F',
+        'species_sum': species_sum,
+        'animal_sum': animal_sum,
+        'animals': animals,
+        'last_login': request.COOKIES['last_login'],
+        'user_authenticated': user_authenticated
+    }
+
+    return render(request, "main.html", context)
+```
+- Mengubah navbar di base.html agar tombol Add New Animal dan Logout hanya ditampilkan apabila user telah diautentikasi
+```HTML
+<div class="navbar-right">
+    {% if user_authenticated %}
+        <a href="{% url 'main:create_animal' %}">Add Animal</a> 
+        <div class="dropdown">
+            <button class="dropbtn">Welcome, {{user.username}}</button>
+            <div class="dropdown-content">
+                <a href="{% url 'main:logout' %}">Logout</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+```
+- Melakukan migrasi model dengan dengan `python manage.py makemigrations` dan berikan default user dengan ID 1, lalu jalankan `python manage.py migrate`

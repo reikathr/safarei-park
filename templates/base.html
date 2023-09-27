@@ -17,12 +17,20 @@
     <body>
         <div class="navbar">
             <div class="navbar-left">
-                <a href="#" class="Logo">
+                <a href="{% url 'main:show_main' %}" class="Logo">
                     <img class="logoimg" width="106" height="42 data-src="media/Safarei.png" alt="Safarei" src="media/Safarei.png">
                 </a>
             </div>
             <div class="navbar-right">
-                <a href="{% url 'main:create_animal' %}">Add Animal</a>
+                {% if user_authenticated %}
+                    <a href="{% url 'main:create_animal' %}">Add Animal</a> 
+                    <div class="dropdown">
+                        <button class="dropbtn">Welcome, {{user.username}}</button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'main:logout' %}">Logout</a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
             {% block content %}

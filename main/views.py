@@ -17,6 +17,7 @@ def show_main(request):
     species_sum = animals.count
     for animal in animals:
         animal_sum += animal.amount
+    user_authenticated = request.user.is_authenticated
 
     context = {
         'name': request.user.username,
@@ -24,7 +25,8 @@ def show_main(request):
         'species_sum': species_sum,
         'animal_sum': animal_sum,
         'animals': animals,
-        'last_login': request.COOKIES['last_login']
+        'last_login': request.COOKIES['last_login'],
+        'user_authenticated': user_authenticated
     }
 
     return render(request, "main.html", context)
@@ -39,6 +41,7 @@ def create_animal(request):
         return HttpResponseRedirect(reverse('main:show_main'))
 
     context = {'form': form}
+    context['user_authenticated']: user_authenticated
     return render(request, "create_animal.html", context)
 
 def show_xml(request):
@@ -100,9 +103,15 @@ def update_animal_amount(request):
 
             if action == 'increment':
                 animal.amount += 1
+                animal.save()
             elif action == 'decrement' and animal.amount > 0:
                 animal.amount -= 1
-
-            animal.save()
+                animal.save()
+                if animal.amount == 0:
+                    animal.delete()
+            elif action == 'delete':
+                animal.amount -= animal.amount
+                if animal.amount == 0:
+                    animal.delete()
 
     return redirect('main:show_main')
