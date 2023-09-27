@@ -408,3 +408,5 @@ def show_main(request):
 </div>
 ```
 - Melakukan migrasi model dengan dengan `python manage.py makemigrations` dan berikan default user dengan ID 1, lalu jalankan `python manage.py migrate`
+- Membuat dua akun, salah satunya adalah super user dengan username admin yang bisa mengakses data di localhost:8000/admin, satu lagi bernama catoru, lalu menambahkan data ke kedua akun tersebut.
+** Di luar *scope* tugas ini, saya juga melakukan perubahan pada model Animal dan formnya untuk menerima gambar.
