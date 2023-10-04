@@ -410,3 +410,86 @@ def show_main(request):
 - Melakukan migrasi model dengan dengan `python manage.py makemigrations` dan berikan default user dengan ID 1, lalu jalankan `python manage.py migrate`
 - Membuat dua akun, salah satunya adalah super user dengan username admin yang bisa mengakses data di localhost:8000/admin, satu lagi bernama catoru, lalu menambahkan data ke kedua akun tersebut.
 ** Di luar *scope* tugas ini, saya juga melakukan perubahan pada model Animal dan formnya untuk menerima gambar.
+---
+### Pertanyaan Tugas 5
+1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
++ Element Selector: digunakan untuk menerapkan style ke elemen sesuai dengan nama element/tag HTML-nya, seperti div, h1, h2, p, dsb. Selector ini digunakan ketika ingin menerapkan style yang sama ke semua (atau mayoritas) elemen sesuai jenisnya.
++ ID Selector: digunakan untuk menerapkan style kepada elemen dengan atribut ID tertentu. Digunakan untuk elemen-elemen yang sifatnya unik dengan awalan #, contohnya: `#id (...)`
++ Class selector: digunakan untuk menerapkan style pada elemen-elemen dari class yang sama dengan awalan . seperti `.navbar{...}`
++ Universal selector: menerapkan style ke seluruh elemen dalam dokumen HTML dengan `* {...}`
++ Grouping selector: digunakan untuk menerapkan style yang sama untuk beberapa elemen berbeda seperti `p, h1, h2 {...}`
+
+2. Jelaskan HTML5 Tag yang kamu ketahui.
++ <a> mendefinisikan sebuah tautan
++ <audio> meng-embed audio di dokumen HTML
++ <b> membuat teks menjadi bold
++ <body> mendefinisikan body dari dokument HTML
++ <br> menghasilkan line break
++ <button> membuat tombol
++ <code> menulis teks sebagai kode program
++ <col> mendefinisikan kolom di sebuah tabel
++ <div> mendefinisikan division/bagian dari dokumen
++ <dl> mendefinisikan description list
++ <dt> mendefinisikan benda di description list
++ <em> mendefinisikan emphasized (italic) text
++ <footer> menandakan footer dari dokumen atau suatu section
++ <form> mendefinisikan form untuk input pengguna
++ <head> mendefinisikan head dari dokumen yang mengandung informasi tentang dokumen tersebut
++ <header> menandakan header dari dokumen atau suatu section
++ <h1> ... <h6> mendefinisikan heading dalam HTML
++ <hr> membuat garis horizontal
++ <html> mendefinisikan root dari dokumen html
++ <i> membuat teks italic
++ <img> menampilkan foto
++ <li> mendefinisikan objek dalam list
++ <link> mendefinisikan hubungan antara dokumen dengan sumber di luar dokumen
++ <main> mendefinisikan konten utama dari dokumen
++ <meta> berisi metadata tentang isi dokumen
++ <nav> mendefinisikan bagian tautan navigation
++ <ol> mendefinisikan list terurut
++ <p> mendefinisikan paragraf
++ <q> mendefinisikan quotation singkat
++ <span> menandakan bagian inline yang dapat distyle dengan CSS
++ <strong> mendefinisikan emphasized (bold) text
++ <style> menyertakan style information yang biasanya merupakan CSS di head
++ <sub> mendefinisikan teks subscript
++ <svg> meng-embed SVG (vektor) dalam dokumen
++ <table> mendefinisikan tabel
++ <td> mendefinisikan cell dalam tabel
++ <textarea> mendefinisikan area text input dengan lebih dari satu line
++ <th> mendefinisikan cell header dalam tabel
++ <time> merepresentasikan watu/tanggal
++ <title> mendefinisikan judul dokumen
++ <tr> mendefinisikan baris dalam tabel
++ <u> menampilkan teks dengan garis bawah
++ <ul> mendefinisikan list tidak terurut
++ <var> mendefinisikan variabel
++ <video> meng-embed video dalam dokumen
+
+3. Jelaskan perbedaan antara margin dan padding.
+Dalam CSS box model, padding adalah area antara isi suatu box dengan bordernya, sementara margin adalah area antara luar border dengan objek lain.
+
+4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+Tailwind lebih fleksibel daripada Bootstrap karena Bootstrap memberikan kelas CSS dan komponen Javascript yang sudah didefinsikan, sementara Tailwind memberikan kelas low-level yang fokus pada fungsi dari kelas tersebut. Kita dapat menggunakan Bootstrap ketika ingin melakukan set-up cepat dan tidak memerlukan banyak customization. Sebaliknya, Tailwind lebih baik digunakan ketika ingin melakukan banyak customization untuk UI yang lebih unik.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Menjalankan venv
+- Melakukan konfigurasi sass untuk django (menginstall django-sass-processor, melakukan konfigurasi di settings.py untuk sass dan folder static yang akan menyimpan file styles.scss)
+- Memodifikasi base.html dengan menambahkan line berikut untuk me-load static dan sass (scss) yang digunakan sebagai styles base.html
+```
+{% load static %}
+{% load sass_tags %}
+```
+- Menambahkan line berikut di base.html untuk me-link stylesheet bootstrap dan styles.scss ke template:
+```
+<html>
+...
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'scss\styles.scss' %}">
+...
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+```
+- Melakukan customization di html (base.html, main.html, dll) dan menerapkan style sesuai keinginan di styles.scss.
+- Jalankan `python manage.py runserver` di terminal untuk melihat hasilnya.

@@ -98,6 +98,12 @@ body {
 .navbar-left {
   display: flex;
   float: left; }
+  .navbar-left .logo {
+    font-family: 'Pangolin', cursive;
+    color: #59AA4C;
+    font-size: 40px;
+    padding: 0px 5px;
+    margin: 0px 5px; }
 
 .navbar-right {
   display: flex;

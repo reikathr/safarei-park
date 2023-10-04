@@ -35,6 +35,7 @@ body {
     justify-content: center;
 }
 
+
 .h5 {
     font-size: 30px;
     font-family: 'Pangolin', cursive;
@@ -125,6 +126,13 @@ body {
 .navbar-left {
     display:flex;
     float: left;
+    .logo {
+        font-family: 'Pangolin', cursive;
+        color: $color-two;
+        font-size: 40px;
+        padding: 0px 5px;
+        margin: 0px 5px;
+    }
 }
 
 .navbar-right {
