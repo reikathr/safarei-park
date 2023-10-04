@@ -420,51 +420,51 @@ def show_main(request):
 + Grouping selector: digunakan untuk menerapkan style yang sama untuk beberapa elemen berbeda seperti `p, h1, h2 {...}`
 
 2. Jelaskan HTML5 Tag yang kamu ketahui.
-+ <a> mendefinisikan sebuah tautan
-+ <audio> meng-embed audio di dokumen HTML
-+ <b> membuat teks menjadi bold
-+ <body> mendefinisikan body dari dokument HTML
-+ <br> menghasilkan line break
-+ <button> membuat tombol
-+ <code> menulis teks sebagai kode program
-+ <col> mendefinisikan kolom di sebuah tabel
-+ <div> mendefinisikan division/bagian dari dokumen
-+ <dl> mendefinisikan description list
-+ <dt> mendefinisikan benda di description list
-+ <em> mendefinisikan emphasized (italic) text
-+ <footer> menandakan footer dari dokumen atau suatu section
-+ <form> mendefinisikan form untuk input pengguna
-+ <head> mendefinisikan head dari dokumen yang mengandung informasi tentang dokumen tersebut
-+ <header> menandakan header dari dokumen atau suatu section
-+ <h1> ... <h6> mendefinisikan heading dalam HTML
-+ <hr> membuat garis horizontal
-+ <html> mendefinisikan root dari dokumen html
-+ <i> membuat teks italic
-+ <img> menampilkan foto
-+ <li> mendefinisikan objek dalam list
-+ <link> mendefinisikan hubungan antara dokumen dengan sumber di luar dokumen
-+ <main> mendefinisikan konten utama dari dokumen
-+ <meta> berisi metadata tentang isi dokumen
-+ <nav> mendefinisikan bagian tautan navigation
-+ <ol> mendefinisikan list terurut
-+ <p> mendefinisikan paragraf
-+ <q> mendefinisikan quotation singkat
-+ <span> menandakan bagian inline yang dapat distyle dengan CSS
-+ <strong> mendefinisikan emphasized (bold) text
-+ <style> menyertakan style information yang biasanya merupakan CSS di head
-+ <sub> mendefinisikan teks subscript
-+ <svg> meng-embed SVG (vektor) dalam dokumen
-+ <table> mendefinisikan tabel
-+ <td> mendefinisikan cell dalam tabel
-+ <textarea> mendefinisikan area text input dengan lebih dari satu line
-+ <th> mendefinisikan cell header dalam tabel
-+ <time> merepresentasikan watu/tanggal
-+ <title> mendefinisikan judul dokumen
-+ <tr> mendefinisikan baris dalam tabel
-+ <u> menampilkan teks dengan garis bawah
-+ <ul> mendefinisikan list tidak terurut
-+ <var> mendefinisikan variabel
-+ <video> meng-embed video dalam dokumen
++ `<a>` mendefinisikan sebuah tautan
++ `<audio>` meng-embed audio di dokumen HTML
++ `<b>` membuat teks menjadi bold
++ `<body>` mendefinisikan body dari dokument HTML
++ `<br>` menghasilkan line break
++ `<button>` membuat tombol
++ `<code>` menulis teks sebagai kode program
++ `<col>` mendefinisikan kolom di sebuah tabel
++ `<div>` mendefinisikan division/bagian dari dokumen
++ `<dl>` mendefinisikan description list
++ `<dt>` mendefinisikan benda di description list
++ `<em>` mendefinisikan emphasized (italic) text
++ `<footer>` menandakan footer dari dokumen atau suatu section
++ `<form>` mendefinisikan form untuk input pengguna
++ `<head>` mendefinisikan head dari dokumen yang mengandung informasi tentang dokumen tersebut
++ `<header>` menandakan header dari dokumen atau suatu section
++ `<h1> ... <h6>` mendefinisikan heading dalam HTML
++ `<hr>` membuat garis horizontal
++ `<html>` mendefinisikan root dari dokumen html
++ `<i>` membuat teks italic
++ `<img>` menampilkan foto
++ `<li>` mendefinisikan objek dalam list
++ `<link>` mendefinisikan hubungan antara dokumen dengan sumber di luar dokumen
++ `<main>` mendefinisikan konten utama dari dokumen
++ `<meta>` berisi metadata tentang isi dokumen
++ `<nav>` mendefinisikan bagian tautan navigation
++ `<ol>` mendefinisikan list terurut
++ `<p>` mendefinisikan paragraf
++ `<q>` mendefinisikan quotation singkat
++ `<span>` menandakan bagian inline yang dapat distyle dengan CSS
++ `<strong>` mendefinisikan emphasized (bold) text
++ `<style>` menyertakan style information yang biasanya merupakan CSS di head
++ `<sub>` mendefinisikan teks subscript
++ `<svg>` meng-embed SVG (vektor) dalam dokumen
++ `<table>` mendefinisikan tabel
++ `<td>` mendefinisikan cell dalam tabel
++ `<textarea>` mendefinisikan area text input dengan lebih dari satu line
++ `<th>` mendefinisikan cell header dalam tabel
++ `<time>` merepresentasikan watu/tanggal
++ `<title>` mendefinisikan judul dokumen
++ `<tr>` mendefinisikan baris dalam tabel
++ `<u>` menampilkan teks dengan garis bawah
++ `<ul>` mendefinisikan list tidak terurut
++ `<var>` mendefinisikan variabel
++ `<video>` meng-embed video dalam dokumen
 
 3. Jelaskan perbedaan antara margin dan padding.
 Dalam CSS box model, padding adalah area antara isi suatu box dengan bordernya, sementara margin adalah area antara luar border dengan objek lain.
