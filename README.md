@@ -1,6 +1,6 @@
 # SafareiPark
 ### An online inventory for a (fictional) safari park.
-### Tautan aplikasi: https://safarei-park.adaptable.app/main/
+### Tautan aplikasi: https://athira-reika-tugas.pbp.cs.ui.ac.id
 ---
 ### Pertanyaan Tugas 2
 1. Langkah-langkah mengimplementasikan:
