@@ -132,7 +132,7 @@ def add_animal_ajax(request):
         animal_image = request.POST.get("animal_image")
         user = request.user
 
-        new_animal = Product(name=name, amount=amount, family=family, animal_class=animal_class, description=description, animal_image=animal_image, user=user)
+        new_animal = Animal(name=name, amount=amount, family=family, animal_class=animal_class, description=description, animal_image=animal_image, user=user)
         new_animal.save()
 
         return HttpResponse(b"CREATED", status=201)
