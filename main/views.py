@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -115,3 +116,33 @@ def update_animal_amount(request):
                     animal.delete()
 
     return redirect('main:show_main')
+
+def get_animal_json(request):
+    animal_item = Animal.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', animal_item))
+
+@csrf_exempt
+def add_animal_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        family = request.POST.get("family")
+        animal_class = request.POST.get("animal_class")
+        description = request.POST.get("description")
+        animal_image = request.POST.get("animal_image")
+        user = request.user
+
+        new_animal = Animal(name=name, amount=amount, family=family, animal_class=animal_class, description=description, animal_image=animal_image, user=user)
+        new_animal.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_animal_ajax(request, id):
+    if request.method == 'DELETE':
+        item = Animal.objects.get(pk=id)
+        item.delete()
+        return HttpResponse(b"DELETED", status=200)
+    return HttpResponseNotFound()

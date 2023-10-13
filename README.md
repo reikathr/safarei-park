@@ -493,3 +493,47 @@ Tailwind lebih fleksibel daripada Bootstrap karena Bootstrap memberikan kelas CS
 ```
 - Melakukan customization di html (base.html, main.html, dll) dan menerapkan style sesuai keinginan di styles.scss.
 - Jalankan `python manage.py runserver` di terminal untuk melihat hasilnya.
+
+---
+### Pertanyaan Tugas 6
+1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+Dalam synchronous programming, kode dieksekusi sesuai urutannya. Suatu kode harus menunggu kode sebelumnya selesai dieksekusi. Dalam asynchronous progrmaming, kode tidak bergantung dengan kode sebelumnya. Dalam kata lain, kode tidak harus menunggu kode di atasnya/sebelumnya untuk dieksekusi sebelum dapat jalan.
+
+2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Event-driven programming berarti kode berjalan sesuai event yang terjadi. Contoh: input user, button, mouse-click, mouse-motion, dsb. Dalam tugas ini, event driven programming diaplikasikan dalam bentuk button.
+
+3. Jelaskan penerapan asynchronous programming pada AJAX.
+Asynchronous programming dalam AJAX diterapkan dalam bentuk request HTTP asinkron dari webpage ke webserver. Event-driven programming dalam AJAX mengirim request untuk diproses di background sambil melakukan hal lain sehingga interface bersifat responsive.
+
+4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+Fetch API lebih cocok untuk browser modern dan lebih ringan, mengurangi overhead dari aplikasi web kita. Sementara itu, jQuery compatible dengan browser-browser lama dan range utility dari jQuery lebih besar tetapi kurang cocok jika hanya ingin menerapkan AJAX karena dapat memperburuk performa dari aplikasi. Menurut saya, Fetch API lebih cocok untuk digunakan untuk aplikasi modern yang bersifat ringan, sementara jQuery cocok untuk proyek-proyek yang sudah menggunakan jQuery dan ingin mempertahankan compatibility dengan browser-browser lama.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Menambahkan fungsi untuk mengambil data dengan json dan menambahkan animal dengan JSON di views.py
+``` python
+def get_animal_json(request):
+    animal_item = Animal.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', animal_item))
+
+@csrf_exempt
+def add_animal_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        family = request.POST.get("family")
+        animal_class = request.POST.get("animal_class")
+        description = request.POST.get("description")
+        animal_image = request.POST.get("animal_image")
+        user = request.user
+
+        new_animal = Animal(name=name, amount=amount, family=family, animal_class=animal_class, description=description, animal_image=animal_image, user=user)
+        new_animal.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+```
+- Menambahkan routing untuk kedua fungsi tersebut di urls.py
+- Memodifikasi kode cards untuk menerapkan AJAX GET di main.html dengan script
+- Menambahkan modal sesuai dengan model di safarei_park di main.html
+- Menambahkan tombol untuk membuka modal add animal by AJAX

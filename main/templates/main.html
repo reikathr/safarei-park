@@ -7,16 +7,76 @@
         <h4 class="totals">You have seen <span style="color:#FF5FAC;">{{animal_sum}}</span> animals from <span style="color:#FF5FAC;">{{species_sum}}</span> species!</h4>
 
         <div class="container mt-3">
-            <div class="row">
-                {% for animal in animals %}
-                {% if animal.amount != 0 %}
-                <div class="col-md-3">
+            <div class="row" id="button-row">
+            </div>
+        </div>
+    <br />
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Animal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="family" class="col-form-label">Family:</label>
+                            <input type="text" class="form-control" id="family" name="family"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="animal_class" class="col-form-label">Class:</label>
+                            <input type="text" class="form-control" id="animal_class" name="animal_class"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="animal_image" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control-file" id="animal_image" name="animal_image"></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Animal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Animal by AJAX</button>
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    </div>
+
+    <script>
+        async function getAnimals() {
+            return fetch("{% url 'main:get_animal_json' %}").then((res) => res.json())
+        }
+
+        async function refreshAnimals() {
+        document.getElementById("button-row").innerHTML = ""
+        const animals = await getAnimals()
+        let htmlString = ""
+        animals.forEach((item) => {
+            htmlString += `\n<div class="col-md-3">
                     <div class="card mb-5 h-100">
-                        <img src="{{animal.animal_image.url}}" class="card-img-top" alt="image for {{animal.name}}">
+                        <img src="${item.fields.animal_image.url}" class="card-img-top" alt="image for ${item.fields.name}">
                         <div class="card-body">
-                            <h4 class="card-species">{{animal.name}}</h5>
-                            <h3 class="card-details">Family: {{animal.family}}, Class: {{animal.animal_class}}.</h3>
-                            <p class="card-description">{{animal.description}}</p>
+                            <h4 class="card-species">${item.fields.name}</h5>
+                            <h3 class="card-details">Family: ${item.fields.family}, Class: ${item.fields.animal_class}.</h3>
+                            <p class="card-description">${item.fields.description}</p>
                         </div>
                         <div class="card-footer">
                             <div class="container-fluid">
@@ -26,26 +86,26 @@
                                     <form method="post" action="{% url 'main:update_amount' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <input type="hidden" name="animal_id" value="${item.fields.id}">
                                         <button type="submit" class="btn">X</button>
                                     </form>
                                     <form method="post" action="{% url 'main:update_amount' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="decrement">
-                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <input type="hidden" name="animal_id" value="${item.fields.id}">
                                         <button type="submit" class="btn">-</button>
                                     </form>
                                 </div>
                                 <div class="col">
                                     <!-- Centered content -->
-                                    <p class ="amount-display">{{animal.amount}}</p>
+                                    <p class ="amount-display">${item.fields.amount}</p>
                                 </div>
                                 <div class="col">
                                     <!-- Right content -->
                                     <form method="post" action="{% url 'main:update_amount' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="increment">
-                                        <input type="hidden" name="animal_id" value="{{ animal.id }}">
+                                        <input type="hidden" name="animal_id" value="${item.fields.id}">
                                         <button type="submit" class="btn">+</button>
                                     </form>
                                 </div>
@@ -53,26 +113,32 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    <br />
+                </div>` 
+        })
+        
+        document.getElementById("button-row").innerHTML = htmlString
+    }
 
-    <!-- <a href="{% url 'main:create_animal' %}">
-        <button>
-            Add New Animal
-        </button>
-    </a>
+    refreshAnimals()
 
-    
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a> -->
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
-    </div>
+    function addAnimal() {
+        fetch("{% url 'main:add_animal_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshAnimals)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    function deleteAnimal(animalID) {
+        fetch(`delete-animal-ajax/${animalID}`, {
+          method:"DELETE"
+        }).then(refreshAnimals)
+        return false
+      }
+
+    document.getElementById("button_add").onclick = addAnimal
+    </script>
 
 {% endblock %}
