@@ -1,7 +1,8 @@
 from django.urls import path
 from main.views import show_main, create_animal, show_xml, show_json
 from main.views import show_xml_by_id, show_json_by_id
-from main.views import register, login_user, logout_user, update_animal_amount, get_animal_json, add_animal_ajax, delete_animal_ajax
+from main.views import register, login_user, logout_user, update_animal_amount
+from main.views import get_animal_json, add_animal_ajax, delete_animal_ajax, create_animal_flutter
 
 app_name = 'main'
 
@@ -19,4 +20,6 @@ urlpatterns = [
     path('get-animal/', get_animal_json, name='get_animal_json'),
     path('add-animal-ajax/', add_animal_ajax, name='add_animal_ajax'),
     path('delete-animal-ajax/', delete_animal_ajax, name='delete_animal_ajax'),
+    path('create-flutter/', create_animal_flutter, name='create_animal_flutter'),
+
 ]

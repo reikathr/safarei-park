@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from main.forms import AnimalForm, AnimalAmountForm
 from main.models import Animal
 from django.urls import reverse
@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -146,3 +147,24 @@ def delete_animal_ajax(request, id):
         item.delete()
         return HttpResponse(b"DELETED", status=200)
     return HttpResponseNotFound()
+
+@csrf_exempt
+def create_animal_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_animal = Animal.objects.create(
+            user = request.user,
+            name = data["name"],
+            amount = int(data["amount"]),
+            family = data["family"],
+            animal_class = data["animal_class"],
+            description = data["description"]
+        )
+
+        new_animal.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
