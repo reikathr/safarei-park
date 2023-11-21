@@ -49,13 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'authentication',
-    'sass_processor'
 ]
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
 ]
 
 MIDDLEWARE = [
@@ -153,9 +151,9 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-SASS_PROCESSOR_ROOT = STATIC_ROOT
+# SASS_PROCESSOR_ROOT = STATIC_ROOT
 
-SASS_PROCESSOR_OUTPUT_DIR = 'static/css'
+# SASS_PROCESSOR_OUTPUT_DIR = 'static/css'
 
 MEDIA_URL = '/media/'
 
